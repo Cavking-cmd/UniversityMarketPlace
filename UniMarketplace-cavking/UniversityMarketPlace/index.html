@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UniManitoba.store — Buy, sell, swap campus stuff</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --board: #5B3A26;
+    --board-deep: #432A1B;
+    --board-grain: #6B4830;
+    --paper: #F6EFDD;
+    --paper-2: #EFE5C9;
+    --ink: #241C14;
+    --ink-soft: #4A3E2E;
+    --gold: #C89B3C;
+    --gold-deep: #A87F28;
+    --rust: #A6432E;
+    --teal: #2C4A52;
+    --line: rgba(36,28,20,0.14);
+    --shadow-pin: rgba(0,0,0,0.35);
+  }
+  :root:not([data-theme="light"]){
+    --page-bg: #2E2013;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --page-bg: #201609;
+    }
+  }
+  :root[data-theme="dark"]{
+    --page-bg: #201609;
+  }
+  :root[data-theme="light"]{
+    --page-bg: #EFE6D2;
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--page-bg, #EFE6D2);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  @media (max-width: 640px){
+    .wrap{ padding: 0 18px; }
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    padding: 26px 0 10px;
+  }
+  .nav-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 20px;
+  }
+  .wordmark{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+    text-decoration:none;
+    display:flex;
+    align-items:baseline;
+    gap: 2px;
+  }
+  .wordmark small{
+    font-family: 'Courier Prime', monospace;
+    font-weight:400;
+    font-size: 0.62rem;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    align-self:flex-start;
+    margin-left: 6px;
+    border: 1px solid var(--gold-deep);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  nav.links{
+    display:flex;
+    align-items:center;
+    gap: 28px;
+    font-size: 0.94rem;
+    color: var(--paper-2);
+  }
+  nav.links a{ text-decoration:none; opacity: 0.88; }
+  nav.links a:hover{ opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size: 0.92rem;
+    padding: 10px 18px;
+    border-radius: 4px;
+    border: 1.5px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:focus-visible{ outline: 3px solid var(--gold); outline-offset: 2px; }
+  .btn-primary{
+    background: var(--gold);
+    color: var(--board-deep);
+  }
+  .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 4px 0 var(--gold-deep); }
+  .btn-ghost{
+    border-color: rgba(246,239,221,0.4);
+    color: var(--paper);
+    background: transparent;
+  }
+  .btn-ghost:hover{ background: rgba(246,239,221,0.08); }
+  .nav-cta{ display:flex; gap:12px; align-items:center; }
+  @media (max-width: 780px){
+    nav.links{ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(255,255,255,0.05), transparent 50%),
+      repeating-linear-gradient(115deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 2px, transparent 2px, transparent 5px),
+      var(--board);
+    border-bottom: 10px solid var(--board-deep);
+    padding: 56px 0 90px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 50px;
+    align-items:center;
+  }
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns: 1fr; }
+  }
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size: 0.82rem;
+    color: var(--gold);
+    margin: 0 0 16px;
+  }
+  h1.headline{
+    font-family:'Caveat', cursive;
+    font-weight: 700;
+    font-size: clamp(3rem, 6.4vw, 4.8rem);
+    line-height: 1.05;
+    color: var(--paper);
+    margin: 0 0 12px;
+    max-width: 13ch;
+    rotate: -0.8deg;
+  }
+  .hero p.sub{
+    color: var(--paper-2);
+    font-size: 1.08rem;
+    line-height: 1.6;
+    max-width: 44ch;
+    margin: 0 0 30px;
+  }
+  .hero-ctas{ display:flex; gap: 14px; flex-wrap:wrap; margin-bottom: 28px;}
+  .hero-note{
+    font-size: 0.86rem;
+    color: rgba(246,239,221,0.65);
+    font-family: 'Courier Prime', monospace;
+  }
+
+  /* corkboard cluster */
+  .board-cluster{
+    position: relative;
+    height: 420px;
+  }
+  .blackboard{
+    position:absolute;
+    inset: -18px -16px -14px -16px;
+    border-radius: 6px;
+    background:
+      radial-gradient(ellipse at 28% 18%, rgba(255,255,255,0.05), transparent 55%),
+      repeating-linear-gradient(100deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 4px),
+      linear-gradient(165deg, #29362f, #12180f);
+    border: 10px solid #6B4830;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.4), inset 0 0 34px rgba(0,0,0,0.4);
+  }
+  .board-cluster .blackboard{
+    transition: opacity .75s ease,
+                transform .75s cubic-bezier(.16,.84,.44,1),
+                filter .6s ease;
+  }
+  .pin-card{
+    position:absolute;
+    width: 208px;
+    background: var(--paper);
+    border-radius: 2px;
+    padding: 16px 16px 14px;
+    box-shadow: 0 10px 22px var(--shadow-pin);
+    font-family: 'Courier Prime', monospace;
+    rotate: var(--r, 0deg);
+    opacity: 0;
+    transform: translateY(-34px) scale(.9);
+    filter: blur(2px);
+    transition: opacity .55s cubic-bezier(.22,.9,.3,1.08),
+                transform .55s cubic-bezier(.22,.9,.3,1.08),
+                filter .5s ease;
+  }
+  .pin-card.in-view{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  .pin-card.exit-up{ opacity: 0; transform: translateY(-46px) scale(.88); filter: blur(3px) grayscale(50%); }
+  .pc-1{ transition-delay: .30s; }
+  .pc-2{ transition-delay: .38s; }
+  .pc-3{ transition-delay: .46s; }
+  .pc-4{ transition-delay: .54s; }
+  .pc-5{ transition-delay: .62s; }
+  .pc-6{ transition-delay: .70s; }
+  .pin-card::before{
+    content:'';
+    position:absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px; height:14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #f0c85a, var(--gold-deep) 70%);
+    box-shadow: 0 3px 4px rgba(0,0,0,0.4);
+  }
+  .pin-card .item{
+    font-weight:700;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin: 0 0 6px;
+    line-height:1.3;
+  }
+  .pin-card .price{
+    color: var(--rust);
+    font-weight:700;
+    font-size: 1.1rem;
+    margin: 0 0 8px;
+  }
+  .pin-card .meta{
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    border-top: 1px dashed var(--line);
+    padding-top: 8px;
+    margin:0;
+  }
+  .pc-1{ top: 6px; left: 4%; rotate: -6deg; }
+  .pc-2{ top: 0; left: 40%; rotate: 4deg; z-index:3; width: 190px;}
+  .pc-3{ top: 40px; left: 68%; rotate: -3deg; }
+  .pc-4{ top: 220px; left: 10%; rotate: 3deg; }
+  .pc-5{ top: 250px; left: 46%; rotate: -5deg; z-index:2;}
+  .pc-6{ top: 210px; left: 74%; rotate: 6deg; }
+
+  @media (max-width: 900px){
+    .board-cluster{ height: 320px; }
+    .pin-card{ width: 150px; padding: 12px 12px 10px; }
+    .pin-card .item{ font-size: 0.82rem; }
+    .pin-card .price{ font-size: 0.95rem; }
+  }
+  @media (max-width: 560px){
+    .board-cluster{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .pin-card{
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ---------- SCROLL REVEAL / EXIT SYSTEM ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(28px) scale(.96);
+    filter: blur(2px);
+    transition: opacity .6s cubic-bezier(.22,.9,.3,1.05),
+                transform .6s cubic-bezier(.22,.9,.3,1.05),
+                filter .55s ease;
+  }
+  .reveal.in-view{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  .reveal.exit-up{ opacity: 0; transform: translateY(-34px) scale(.9); filter: blur(3px) grayscale(55%); }
+
+  .grid .card:nth-child(1){ transition-delay: 0s; }
+  .grid .card:nth-child(2){ transition-delay: .06s; }
+  .grid .card:nth-child(3){ transition-delay: .12s; }
+  .grid .card:nth-child(4){ transition-delay: .18s; }
+  .grid .card:nth-child(5){ transition-delay: .24s; }
+  .grid .card:nth-child(6){ transition-delay: .30s; }
+
+  .cat-row .cat-chip:nth-child(1){ transition-delay: 0s; }
+  .cat-row .cat-chip:nth-child(2){ transition-delay: .05s; }
+  .cat-row .cat-chip:nth-child(3){ transition-delay: .10s; }
+  .cat-row .cat-chip:nth-child(4){ transition-delay: .15s; }
+  .cat-row .cat-chip:nth-child(5){ transition-delay: .20s; }
+  .cat-row .cat-chip:nth-child(6){ transition-delay: .25s; }
+
+  .steps .step:nth-child(1){ transition-delay: 0s; }
+  .steps .step:nth-child(2){ transition-delay: .1s; }
+  .steps .step:nth-child(3){ transition-delay: .2s; }
+
+  .spot-list .spot:nth-child(1){ transition-delay: 0s; }
+  .spot-list .spot:nth-child(2){ transition-delay: .08s; }
+  .spot-list .spot:nth-child(3){ transition-delay: .16s; }
+  .spot-list .spot:nth-child(4){ transition-delay: .24s; }
+
+  /* ---------- CATEGORY STRIP ---------- */
+  .categories{
+    background: var(--page-bg, #EFE6D2);
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cat-row{
+    display:flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .cat-chip{
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 9px 16px 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .cat-chip .dot{
+    width: 8px; height:8px; border-radius:50%;
+    background: var(--rust);
+    flex-shrink:0;
+  }
+
+  /* ---------- LISTINGS ---------- */
+  section.listings{
+    padding: 70px 0 40px;
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap: 20px;
+    margin-bottom: 34px;
+  }
+  h2.h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: 1.9rem;
+    margin: 0 0 8px;
+  }
+  .section-head p{
+    margin:0;
+    color: var(--ink-soft);
+    max-width: 40ch;
+  }
+  .see-all{
+    font-size: 0.9rem;
+    font-weight:600;
+    white-space:nowrap;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+  @media (max-width: 900px){ .grid{ grid-template-columns: repeat(2,1fr);} }
+  @media (max-width: 620px){ .grid{ grid-template-columns: 1fr;} }
+
+  .card{
+    position:relative;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 20px 20px 18px;
+    box-shadow: 0 6px 16px rgba(36,28,20,0.10);
+    cursor: pointer;
+    transition: transform .3s cubic-bezier(.22,.9,.3,1.1),
+                box-shadow .3s ease,
+                rotate .3s ease,
+                opacity .6s ease,
+                filter .55s ease;
+  }
+  .card:nth-child(2n){ rotate: -0.6deg; }
+  .card:nth-child(3n){ rotate: 0.7deg; }
+  .card:nth-child(5n){ rotate: -0.4deg; }
+  .card:hover, .card:focus-within{
+    rotate: 0deg;
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 18px 32px rgba(36,28,20,0.22);
+  }
+  .card:hover .price{ color: var(--gold-deep); }
+
+  .card .tape{
+    position:absolute;
+    top: -10px; left: 24px;
+    width: 54px; height: 20px;
+    background: rgba(200,155,60,0.35);
+    border: 1px solid rgba(200,155,60,0.5);
+    transform: rotate(-3deg);
+    transition: transform .3s ease;
+  }
+  .card:hover .tape{ transform: rotate(-6deg) translateY(-3px); }
+  .card .cat-label{
+    font-family:'Courier Prime', monospace;
+    font-size: 0.7rem;
+    color: var(--teal);
+    text-transform: lowercase;
+    margin: 0 0 10px;
+  }
+  .card h3{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size: 1.06rem;
+    margin: 0 0 6px;
+    line-height:1.3;
+  }
+  .card .price{
+    font-family:'Courier Prime', monospace;
+    font-weight:700;
+    color: var(--rust);
+    font-size: 1.15rem;
+    margin: 0 0 14px;
+  }
+  .card .meta-row{
+    display:flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    border-top: 1px dashed var(--line);
+    padding-top: 12px;
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+  section.how{
+    background: var(--board);
+    padding: 74px 0;
+    margin-top: 30px;
+    position:relative;
+  }
+  .how h2.h2{ color: var(--paper); }
+  .how .section-head p{ color: var(--paper-2); }
+  .steps{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+    margin-top: 10px;
+  }
+  @media (max-width: 780px){ .steps{ grid-template-columns: 1fr; } }
+  .step{
+    color: var(--paper-2);
+  }
+  .step .num{
+    font-family:'Fraunces', serif;
+    font-size: 2.3rem;
+    color: var(--gold);
+    margin: 0 0 10px;
+    line-height:1;
+  }
+  .step h4{
+    color: var(--paper);
+    font-size: 1.08rem;
+    margin: 0 0 8px;
+  }
+  .step p{ margin:0; line-height:1.55; font-size: 0.95rem; }
+
+  /* ---------- MEETUP SPOTS ---------- */
+  section.spots{
+    padding: 70px 0;
+  }
+  .spot-list{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    margin-top: 30px;
+  }
+  @media (max-width: 900px){ .spot-list{ grid-template-columns: repeat(2,1fr);} }
+  @media (max-width: 560px){ .spot-list{ grid-template-columns: 1fr;} }
+  .spot{
+    border-left: 3px solid var(--gold-deep);
+    padding: 4px 0 4px 16px;
+  }
+  .spot h5{
+    margin: 0 0 6px;
+    font-size: 0.98rem;
+  }
+  .spot p{
+    margin:0;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height:1.5;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background: var(--board-deep);
+    color: var(--paper-2);
+    padding: 50px 0 26px;
+    margin-top: 10px;
+  }
+  .foot-grid{
+    display:grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(246,239,221,0.15);
+  }
+  @media (max-width: 780px){ .foot-grid{ grid-template-columns: 1fr 1fr; } }
+  .foot-grid h6{
+    font-size: 0.78rem;
+    color: var(--gold);
+    margin: 0 0 14px;
+    font-family:'Courier Prime', monospace;
+  }
+  .foot-grid ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: 10px;}
+  .foot-grid a{ text-decoration:none; font-size: 0.9rem; opacity:0.85; }
+  .foot-grid a:hover{ opacity:1; text-decoration:underline; }
+  .foot-brand p{
+    font-size: 0.88rem;
+    line-height: 1.6;
+    max-width: 34ch;
+    color: rgba(246,239,221,0.7);
+  }
+  .foot-brand .legal-note{
+    font-size: 0.76rem;
+    line-height: 1.55;
+    max-width: 36ch;
+    color: rgba(246,239,221,0.45);
+    margin-top: 14px;
+  }
+  .foot-brand .legal-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 6px 14px;
+    margin-top: 14px;
+  }
+  .foot-brand .legal-links a{
+    font-size: 0.78rem;
+    opacity: 0.8;
+  }
+  .foot-brand .copyright{
+    font-size: 0.78rem;
+    color: rgba(246,239,221,0.5);
+    margin-top: 16px;
+    max-width: none;
+  }
+  .fine-print{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap: 10px;
+    padding-top: 22px;
+    font-size: 0.78rem;
+    color: rgba(246,239,221,0.5);
+  }
+</style>
+</head>
+<body>
+
+<header class="site" style="background:var(--board);">
+  <div class="wrap nav-row">
+    <a href="#" class="wordmark">UniManitoba<small>.store</small></a>
+    <nav class="links">
+      <a href="#listings">Browse</a>
+      <a href="#how">How it works</a>
+      <a href="#spots">Meetup spots</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">Log in</a>
+      <a href="#" class="btn btn-primary">Post a listing</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <p class="eyebrow">the board for Fort Garry &amp; Bannatyne</p>
+      <h1 class="headline">Everything campus needs, off the board and into your hands.</h1>
+      <p class="sub">Sell the textbook you'll never reread. Find a mini fridge before move-in. Trade winter tires when the bike season's done. Built by students, for students at U of M.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-primary">Browse the board</a>
+        <a href="#" class="btn btn-ghost">Post something free</a>
+      </div>
+      <p class="hero-note">No listing fees. No shipping. Just meet on campus.</p>
+    </div>
+    <div class="board-cluster" aria-hidden="true">
+      <div class="blackboard reveal"></div>
+      <div class="pin-card pc-1" style="--r:-6deg;">
+        <p class="item">CHEM 1300 textbook + lab manual</p>
+        <p class="price">$45</p>
+        <p class="meta">Pickup: UMSU Bookstore</p>
+      </div>
+      <div class="pin-card pc-2" style="--r:4deg;">
+        <p class="item">Mini fridge, 3.2 cu ft</p>
+        <p class="price">$60</p>
+        <p class="meta">Pickup: Mary Speechly Hall</p>
+      </div>
+      <div class="pin-card pc-3" style="--r:-3deg;">
+        <p class="item">Winter bike tires (26")</p>
+        <p class="price">$30</p>
+        <p class="meta">Pickup: Active Living Centre</p>
+      </div>
+      <div class="pin-card pc-4" style="--r:3deg;">
+        <p class="item">TI-84 Plus calculator</p>
+        <p class="price">$35</p>
+        <p class="meta">Pickup: Elizabeth Dafoe Library</p>
+      </div>
+      <div class="pin-card pc-5" style="--r:-5deg;">
+        <p class="item">Desk lamp + extension bar</p>
+        <p class="price">$12</p>
+        <p class="meta">Pickup: University Centre</p>
+      </div>
+      <div class="pin-card pc-6" style="--r:6deg;">
+        <p class="item">Grad photo session, 1 hr</p>
+        <p class="price">$25</p>
+        <p class="meta">By: Bisons Photo Co-op</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="categories">
+  <div class="wrap cat-row">
+    <span class="cat-chip reveal"><span class="dot"></span>Textbooks &amp; course packs</span>
+    <span class="cat-chip reveal"><span class="dot"></span>Dorm &amp; furniture</span>
+    <span class="cat-chip reveal"><span class="dot"></span>Electronics</span>
+    <span class="cat-chip reveal"><span class="dot"></span>Bikes &amp; transit</span>
+    <span class="cat-chip reveal"><span class="dot"></span>Tickets &amp; events</span>
+    <span class="cat-chip reveal"><span class="dot"></span>Tutoring &amp; skills</span>
+  </div>
+</section>
+
+<section class="listings wrap" id="listings">
+  <div class="section-head reveal">
+    <div>
+      <h2 class="h2">Fresh on the board</h2>
+      <p>Newest posts from students across Fort Garry, Bannatyne, and the William Norrie Centre.</p>
+    </div>
+    <a href="#" class="see-all">See all listings</a>
+  </div>
+  <div class="grid">
+    <div class="card reveal"><span class="tape"></span>
+      <p class="cat-label">textbooks</p>
+      <h3>STAT 1000 + solutions manual, barely opened</h3>
+      <p class="price">$40</p>
+      <div class="meta-row"><span>Riverview</span><span>2 days ago</span></div>
+    </div>
+    <div class="card reveal"><span class="tape"></span>
+      <p class="cat-label">dorm &amp; furniture</p>
+      <h3>IKEA desk + chair, moving out this weekend</h3>
+      <p class="price">$75</p>
+      <div class="meta-row"><span>Pembina Hall</span><span>5 hours ago</span></div>
+    </div>
+    <div class="card reveal"><span class="tape"></span>
+      <p class="cat-label">electronics</p>
+      <h3>TI-Nspire CX II, comes with charging dock</h3>
+      <p class="price">$55</p>
+      <div class="meta-row"><span>Engineering Bldg</span><span>1 day ago</span></div>
+    </div>
+    <div class="card reveal"><span class="tape"></span>
+      <p class="cat-label">bikes &amp; transit</p>
+      <h3>Commuter bike, new brake pads, good for winter</h3>
+      <p class="price">$120</p>
+      <div class="meta-row"><span>University Crescent</span><span>3 days ago</span></div>
+    </div>
+    <div class="card reveal"><span class="tape"></span>
+      <p class="cat-label">tickets &amp; events</p>
+      <h3>2 tickets — Bisons vs Wesmen, Fri 7pm</h3>
+      <p class="price">$15 / pair</p>
+      <div class="meta-row"><span>Investors Group Ath. Centre</span><span>6 hours ago</span></div>
+    </div>
+    <div class="card reveal"><span class="tape"></span>
+      <p class="cat-label">tutoring &amp; skills</p>
+      <h3>Calc II tutoring, weekly, prof's old TA</h3>
+      <p class="price">$20 / hr</p>
+      <div class="meta-row"><span>Online or Dafoe Library</span><span>1 day ago</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <h2 class="h2">How it works</h2>
+        <p>Three steps, no middleman, no fees.</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <p class="num">1</p>
+        <h4>Post what you've got</h4>
+        <p>Snap a photo, set a price, pick a category. Takes under two minutes.</p>
+      </div>
+      <div class="step reveal">
+        <p class="num">2</p>
+        <h4>Chat with a buyer or seller</h4>
+        <p>Messages stay inside the app, tied to your U of M email, so it's students only.</p>
+      </div>
+      <div class="step reveal">
+        <p class="num">3</p>
+        <h4>Meet somewhere on campus</h4>
+        <p>Trade cash for goods at a public, well-lit spot. Mark the listing sold when you're done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spots" id="spots">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <h2 class="h2">Good spots to meet up</h2>
+        <p>Stick to busy, public places on campus — here are a few students use most.</p>
+      </div>
+    </div>
+    <div class="spot-list">
+      <div class="spot reveal">
+        <h5>University Centre</h5>
+        <p>Central and always busy, good for daytime swaps.</p>
+      </div>
+      <div class="spot reveal">
+        <h5>Elizabeth Dafoe Library</h5>
+        <p>Quiet corners near the entrance, open late during exams.</p>
+      </div>
+      <div class="spot reveal">
+        <h5>Active Living Centre lobby</h5>
+        <p>Good for bikes and gear — wide doors, easy to carry stuff in.</p>
+      </div>
+      <div class="spot reveal">
+        <h5>UMSU Student Bookstore</h5>
+        <p>The obvious pick for textbook handoffs at start of term.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="wordmark" style="margin-bottom:12px; display:inline-flex;">UniManitoba<small>.store</small></a>
+        <p>A student-run marketplace for the University of Manitoba community. Not an official university service.</p>
+        <p class="legal-note">University of Manitoba, UMSU, and the Bisons name and logo are trademarks of their respective owners. UniManitoba.store is an independent, student-run project and is not affiliated with, endorsed by, or sponsored by the University of Manitoba.</p>
+        <div class="legal-links">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Trademark notice</a>
+        </div>
+        <p class="copyright">&copy; 2026 UniManitoba.store. All rights reserved.</p>
+      </div>
+      <div>
+        <h6>marketplace</h6>
+        <ul>
+          <li><a href="#listings">Browse listings</a></li>
+          <li><a href="#">Post a listing</a></li>
+          <li><a href="#">Categories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>safety</h6>
+        <ul>
+          <li><a href="#spots">Meetup spots</a></li>
+          <li><a href="#">Report a listing</a></li>
+          <li><a href="#">Community guidelines</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>about</h6>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine-print">
+      <span>&copy; 2026 UniManitoba.store — made by students at Fort Garry.</span>
+      <span>Go Bisons.</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.reveal, .pin-card');
+
+  if(reduce){
+    targets.forEach(function(el){ el.classList.add('in-view'); });
+    return;
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var el = entry.target;
+      if(entry.isIntersecting){
+        el.classList.add('in-view');
+        el.classList.remove('exit-up');
+      } else if(entry.boundingClientRect.top < 0){
+        // scrolled past the top edge — tear it down
+        el.classList.remove('in-view');
+        el.classList.add('exit-up');
+      }
+      // else: still below the viewport, hasn't been "pinned up" yet — leave as-is
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  targets.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
