@@ -203,6 +203,21 @@
                 transform .75s cubic-bezier(.16,.84,.44,1),
                 filter .6s ease;
   }
+  .mascot{
+    position:absolute;
+    width: 168px;
+    height: 106px;
+    bottom: -4px;
+    right: 1%;
+    color: var(--paper-2);
+    opacity: 0.82;
+    rotate: 3deg;
+    pointer-events: none;
+  }
+  .mascot svg{ width:100%; height:100%; display:block; }
+  @media (max-width: 900px){
+    .mascot{ width: 122px; height: 78px; right: -2%; }
+  }
   .pin-card{
     position:absolute;
     width: 208px;
@@ -585,8 +600,8 @@
       <a href="#spots">Meetup spots</a>
     </nav>
     <div class="nav-cta">
-      <a href="#" class="btn btn-ghost">Log in</a>
-      <a href="#" class="btn btn-primary">Post a listing</a>
+      <a href="https://claude.ai/artifact/QzDYz7s7gpoA6mPK4TNsFP#login" class="btn btn-ghost">Log in</a>
+      <a href="https://claude.ai/artifact/EJE5AZVxpB4aCHD3ccL3fr" class="btn btn-primary">Post a listing</a>
     </div>
   </div>
 </header>
@@ -598,13 +613,52 @@
       <h1 class="headline">Everything campus needs, off the board and into your hands.</h1>
       <p class="sub">Sell the textbook you'll never reread. Find a mini fridge before move-in. Trade winter tires when the bike season's done. Built by students, for students at U of M.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn btn-primary">Browse the board</a>
-        <a href="#" class="btn btn-ghost">Post something free</a>
+        <a href="#listings" class="btn btn-primary">Browse the board</a>
+        <a href="https://claude.ai/artifact/EJE5AZVxpB4aCHD3ccL3fr" class="btn btn-ghost">Post something free</a>
       </div>
       <p class="hero-note">No listing fees. No shipping. Just meet on campus.</p>
     </div>
     <div class="board-cluster" aria-hidden="true">
       <div class="blackboard reveal"></div>
+      <div class="mascot reveal">
+        <svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="
+            M 100 58
+            C 84 42, 66 38, 50 43
+            C 38 47, 28 56, 23 70
+            C 18 82, 19 94, 26 103
+            C 33 109, 41 107, 47 100
+            C 53 93, 59 86, 67 82
+            C 77 76, 87 68, 92 60
+            C 96 58, 98 58, 100 58
+          "/>
+          <circle cx="30" cy="74" r="2.1" fill="currentColor" stroke="none"/>
+          <path d="M 29 105 C 27 109, 27 112, 30 115"/>
+          <path d="M 54 44 C 52 38, 54 33, 60 30"/>
+          <path d="M 66 46 C 65 40, 67 35, 72 32"/>
+          <path d="M 58 50 C 63 46, 68 47, 68 52 C 65 56, 59 55, 58 50 Z"/>
+          <path d="M 92 60 C 89 76, 85 92, 80 108"/>
+          <path d="M 99 64 L 105 72 L 97 78 L 104 86 L 95 92 L 102 100 L 93 106"/>
+          <path d="
+            M 100 58
+            C 112 45, 128 38, 148 38
+            C 168 38, 186 44, 200 55
+            C 213 64, 222 74, 226 86
+            C 229 96, 228 104, 222 110
+          "/>
+          <path d="M 122 44 C 126 40, 132 40, 136 44"/>
+          <path d="M 140 40 C 144 37, 150 37, 154 40"/>
+          <path d="M 224 102 C 233 107, 236 116, 231 125"/>
+          <path d="M 80 108 C 77 126, 75 148, 73 168"/>
+          <path d="M 65 168 C 69 170, 75 170, 79 167"/>
+          <path d="M 102 106 C 99 126, 98 148, 96 168"/>
+          <path d="M 88 168 C 92 170, 98 170, 102 167"/>
+          <path d="M 196 108 C 193 128, 191 150, 189 168"/>
+          <path d="M 181 168 C 185 170, 191 170, 195 167"/>
+          <path d="M 214 111 C 211 132, 209 150, 207 168"/>
+          <path d="M 199 168 C 203 170, 209 170, 213 167"/>
+        </svg>
+      </div>
       <div class="pin-card pc-1" style="--r:-6deg;">
         <p class="item">CHEM 1300 textbook + lab manual</p>
         <p class="price">$45</p>
@@ -639,7 +693,7 @@
   </div>
 </section>
 
-<section class="categories">
+<section class="categories" id="categories">
   <div class="wrap cat-row">
     <span class="cat-chip reveal"><span class="dot"></span>Textbooks &amp; course packs</span>
     <span class="cat-chip reveal"><span class="dot"></span>Dorm &amp; furniture</span>
@@ -656,7 +710,7 @@
       <h2 class="h2">Fresh on the board</h2>
       <p>Newest posts from students across Fort Garry, Bannatyne, and the William Norrie Centre.</p>
     </div>
-    <a href="#" class="see-all">See all listings</a>
+    <a href="#listings" class="see-all">See all listings</a>
   </div>
   <div class="grid">
     <div class="card reveal"><span class="tape"></span>
@@ -763,9 +817,9 @@
         <p>A student-run marketplace for the University of Manitoba community. Not an official university service.</p>
         <p class="legal-note">University of Manitoba, UMSU, and the Bisons name and logo are trademarks of their respective owners. UniManitoba.store is an independent, student-run project and is not affiliated with, endorsed by, or sponsored by the University of Manitoba.</p>
         <div class="legal-links">
-          <a href="#">Terms of Service</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Trademark notice</a>
+          <a href="https://claude.ai/artifact/QzDYz7s7gpoA6mPK4TNsFP#terms">Terms of Service</a>
+          <a href="https://claude.ai/artifact/QzDYz7s7gpoA6mPK4TNsFP#privacy">Privacy Policy</a>
+          <a href="https://claude.ai/artifact/QzDYz7s7gpoA6mPK4TNsFP#trademark">Trademark notice</a>
         </div>
         <p class="copyright">&copy; 2026 UniManitoba.store. All rights reserved.</p>
       </div>
@@ -773,23 +827,23 @@
         <h6>marketplace</h6>
         <ul>
           <li><a href="#listings">Browse listings</a></li>
-          <li><a href="#">Post a listing</a></li>
-          <li><a href="#">Categories</a></li>
+          <li><a href="https://claude.ai/artifact/EJE5AZVxpB4aCHD3ccL3fr">Post a listing</a></li>
+          <li><a href="#categories">Categories</a></li>
         </ul>
       </div>
       <div>
         <h6>safety</h6>
         <ul>
           <li><a href="#spots">Meetup spots</a></li>
-          <li><a href="#">Report a listing</a></li>
-          <li><a href="#">Community guidelines</a></li>
+          <li><a href="mailto:reports@unimanitoba.store?subject=Reporting%20a%20listing">Report a listing</a></li>
+          <li><a href="https://claude.ai/artifact/QzDYz7s7gpoA6mPK4TNsFP#guidelines">Community guidelines</a></li>
         </ul>
       </div>
       <div>
         <h6>about</h6>
         <ul>
           <li><a href="#how">How it works</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="mailto:hello@unimanitoba.store">Contact</a></li>
         </ul>
       </div>
     </div>

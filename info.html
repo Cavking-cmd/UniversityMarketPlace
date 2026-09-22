@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Info &amp; policies — UniManitoba.store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --board: #5B3A26; --board-deep: #432A1B;
+    --paper: #F6EFDD; --paper-2: #EFE5C9;
+    --ink: #241C14; --ink-soft: #4A3E2E;
+    --gold: #C89B3C; --gold-deep: #A87F28;
+    --rust: #A6432E; --teal: #2C4A52;
+    --line: rgba(36,28,20,0.14);
+  }
+  :root:not([data-theme="light"]){ --page-bg: #EFE6D2; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --page-bg: #201609; } }
+  :root[data-theme="dark"]{ --page-bg: #201609; }
+  :root[data-theme="light"]{ --page-bg: #EFE6D2; }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0; background: var(--page-bg, #EFE6D2); color: var(--ink);
+    font-family:'Inter', system-ui, sans-serif; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width: 720px; margin:0 auto; padding: 0 28px; }
+  @media (max-width:560px){ .wrap{ padding:0 18px; } }
+
+  header.site{ background: var(--board); border-bottom: 8px solid var(--board-deep); padding: 22px 0; }
+  .nav-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .wordmark{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.25rem;
+    color: var(--paper); text-decoration:none; display:flex; align-items:baseline; gap:2px;
+  }
+  .wordmark small{
+    font-family:'Courier Prime', monospace; font-weight:400; font-size:.6rem; color: var(--gold);
+    letter-spacing:.06em; align-self:flex-start; margin-left:6px; border:1px solid var(--gold-deep);
+    padding:2px 6px; border-radius:3px;
+  }
+  .back-link{ font-size:.9rem; color: var(--paper-2); text-decoration:none; opacity:.85; }
+  .back-link:hover{ opacity:1; text-decoration:underline; text-underline-offset:4px; }
+
+  .hero{ background: var(--board); padding: 34px 0 50px; border-bottom: 8px solid var(--board-deep); }
+  .hero h1{
+    font-family:'Caveat', cursive; font-weight:700; color: var(--paper);
+    font-size: clamp(2.2rem, 5vw, 3rem); margin:0 0 8px; rotate:-0.5deg;
+  }
+  .hero p{ color: var(--paper-2); margin:0; font-size:.98rem; }
+
+  nav.jump{
+    display:flex; flex-wrap:wrap; gap: 10px 18px;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+    position: sticky; top: 0;
+  }
+  nav.jump a{
+    font-size:.86rem; font-weight:600; text-decoration:none; color: var(--ink-soft);
+    padding: 4px 2px; border-bottom: 2px solid transparent;
+  }
+  nav.jump a:hover{ color: var(--ink); border-color: var(--gold-deep); }
+
+  main{ padding: 44px 0 70px; }
+  section.doc{ margin-bottom: 52px; scroll-margin-top: 64px; }
+  section.doc h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.5rem; margin: 0 0 6px;
+  }
+  section.doc .updated{
+    font-family:'Courier Prime', monospace; font-size:.76rem; color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+  section.doc p{ line-height:1.65; margin: 0 0 14px; color: var(--ink-soft); }
+  section.doc ul{ margin: 0 0 14px; padding-left: 20px; color: var(--ink-soft); line-height:1.65; }
+  section.doc li{ margin-bottom: 6px; }
+
+  .login-card{
+    background: var(--paper);
+    border: 1px dashed var(--gold-deep);
+    border-radius: 4px;
+    padding: 24px;
+    text-align:center;
+  }
+  .login-card .badge{
+    display:inline-block; font-family:'Courier Prime', monospace; font-size:.72rem;
+    color: var(--rust); border:1px solid var(--rust); border-radius:3px;
+    padding: 3px 8px; margin-bottom: 12px;
+  }
+
+  footer{ text-align:center; padding: 26px 0 40px; color: var(--ink-soft); font-size:.8rem; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="#" class="wordmark">UniManitoba<small>.store</small></a>
+    <a href="javascript:history.back()" class="back-link">&larr; Back to the board</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Info &amp; policies</h1>
+    <p>The fine print, plain-language version.</p>
+  </div>
+</section>
+
+<nav class="jump">
+  <div class="wrap" style="display:flex; flex-wrap:wrap; gap:10px 18px;">
+    <a href="#terms">Terms of Service</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#trademark">Trademark notice</a>
+    <a href="#guidelines">Community guidelines</a>
+    <a href="#login">Log in</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="doc" id="terms">
+    <h2>Terms of Service</h2>
+    <p class="updated">last updated: september 2026</p>
+    <p>UniManitoba.store is a listings board that connects students who want to buy, sell, or swap goods and services. We don't handle payments, shipping, or hold onto anything you list — every trade happens directly between the two of you.</p>
+    <ul>
+      <li>You're responsible for the accuracy of your own listings and for showing up to meetups you agree to.</li>
+      <li>No stolen goods, counterfeit items, prohibited substances, or anything you wouldn't be comfortable handing over in a public campus space.</li>
+      <li>We can remove a listing or account that breaks these terms or the community guidelines below.</li>
+      <li>This service is provided as-is, with no guarantee that any listing, buyer, or seller is exactly as described — use your judgment.</li>
+    </ul>
+  </section>
+
+  <section class="doc" id="privacy">
+    <h2>Privacy Policy</h2>
+    <p class="updated">last updated: september 2026</p>
+    <p>We keep the data we collect to the minimum needed to run the board:</p>
+    <ul>
+      <li>Your U of M email, so buyers and sellers can reach each other directly.</li>
+      <li>What you post in a listing — title, price, description, category, and pickup spot.</li>
+      <li>Basic usage data (like which pages get visited) to keep the board working and spot abuse.</li>
+    </ul>
+    <p>We don't sell your information to advertisers or third parties. You can ask to have your listings or account data removed at any time.</p>
+  </section>
+
+  <section class="doc" id="trademark">
+    <h2>Trademark notice</h2>
+    <p class="updated">last updated: september 2026</p>
+    <p>University of Manitoba, UMSU, and the Bisons name and logo are trademarks of their respective owners. UniManitoba.store is an independent, student-run project and is not affiliated with, endorsed by, or sponsored by the University of Manitoba. We use "Manitoba" and "Bisons" descriptively, to indicate who the board is built for, not to imply an official relationship.</p>
+  </section>
+
+  <section class="doc" id="guidelines">
+    <h2>Community guidelines</h2>
+    <p class="updated">last updated: september 2026</p>
+    <ul>
+      <li>Be straightforward — accurate photos, honest condition, real prices.</li>
+      <li>Meet in busy, public, well-lit spots on campus (see the meetup spots on the homepage).</li>
+      <li>No harassment, discrimination, or pressuring anyone to meet somewhere private.</li>
+      <li>Report a listing or user that feels off — we'd rather look into a false alarm than miss a real one.</li>
+    </ul>
+  </section>
+
+  <section class="doc" id="login">
+    <h2>Log in</h2>
+    <p class="updated">accounts</p>
+    <div class="login-card">
+      <span class="badge">coming soon</span>
+      <p style="margin:0;">Accounts and saved logins aren't live yet. For now, every listing includes the seller's U of M email so buyers can reach them directly — no account needed to browse or contact someone.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 UniManitoba.store — made by students at Fort Garry.</footer>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>404 — Not pinned here | UniManitoba.store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --board: #5B3A26; --board-deep: #432A1B;
+    --paper: #F6EFDD; --paper-2: #EFE5C9;
+    --ink: #241C14; --ink-soft: #4A3E2E;
+    --gold: #C89B3C; --gold-deep: #A87F28;
+    --rust: #A6432E;
+    --line: rgba(36,28,20,0.14);
+  }
+  :root:not([data-theme="light"]){ --page-bg: #2E2013; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --page-bg: #201609; } }
+  :root[data-theme="dark"]{ --page-bg: #201609; }
+  :root[data-theme="light"]{ --page-bg: #EFE6D2; }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; height:100%; }
+  body{
+    min-height:100%;
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(255,255,255,0.05), transparent 50%),
+      repeating-linear-gradient(115deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 2px, transparent 2px, transparent 5px),
+      var(--board);
+    color: var(--paper);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: env(safe-area-inset-top,0px) 20px env(safe-area-inset-bottom,0px);
+  }
+  a{ color:inherit; }
+
+  .stage{
+    max-width: 560px;
+    width:100%;
+    text-align:center;
+    padding: 20px 0 40px;
+  }
+
+  .wordmark{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem;
+    color: var(--paper); text-decoration:none; display:inline-flex; align-items:baseline; gap:2px;
+    margin-bottom: 34px;
+  }
+  .wordmark small{
+    font-family:'Courier Prime', monospace; font-weight:400; font-size:.6rem; color: var(--gold);
+    letter-spacing:.06em; align-self:flex-start; margin-left:6px; border:1px solid var(--gold-deep);
+    padding:2px 6px; border-radius:3px;
+  }
+
+  .card{
+    position:relative;
+    display:inline-block;
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+    padding: 40px 34px 34px;
+    box-shadow: 0 16px 34px rgba(0,0,0,0.35);
+    rotate: -1.2deg;
+    max-width: 460px;
+  }
+  .card::before{
+    content:'';
+    position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    width:16px; height:16px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #f0c85a, var(--gold-deep) 70%);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+  }
+  .card::after{
+    content:'';
+    position:absolute; top:14px; left:24px;
+    width:52px; height:18px;
+    background: rgba(200,155,60,0.35);
+    border: 1px solid rgba(200,155,60,0.5);
+    transform: rotate(-4deg);
+  }
+
+  .code{
+    font-family:'Courier Prime', monospace;
+    font-size:.8rem;
+    color: var(--rust);
+    letter-spacing:.08em;
+    margin: 0 0 10px;
+  }
+  h1{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size: clamp(2.2rem, 6vw, 2.8rem);
+    line-height:1.08;
+    margin: 0 0 14px;
+    rotate: -0.5deg;
+  }
+  .card p{
+    color: var(--ink-soft);
+    font-size: .98rem;
+    line-height:1.6;
+    margin: 0 0 26px;
+  }
+
+  .actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Inter', sans-serif; font-weight:600; font-size:.92rem;
+    padding: 11px 20px; border-radius:4px; border:1.5px solid transparent;
+    cursor:pointer; text-decoration:none;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary{ background: var(--gold); color: var(--board-deep); }
+  .btn-primary:hover{ box-shadow: 0 4px 0 var(--gold-deep); }
+  .btn-ghost{ border-color: var(--line); color: var(--ink); background:transparent; }
+  .btn-ghost:hover{ background: rgba(36,28,20,0.05); }
+
+  .stray-tape{
+    position:absolute;
+    width: 46px; height:16px;
+    background: rgba(200,155,60,0.3);
+    border: 1px solid rgba(200,155,60,0.45);
+  }
+  .stray-tape.a{ top:-8px; right: 30px; transform: rotate(12deg); }
+
+  .fine{
+    margin-top: 26px;
+    font-family:'Courier Prime', monospace;
+    font-size:.76rem;
+    color: rgba(246,239,221,0.5);
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <a href="https://claude.ai/artifact/9jNCwMRPgTnhofn9fVyKjo" class="wordmark">UniManitoba<small>.store</small></a>
+
+  <div class="card">
+    <span class="stray-tape a"></span>
+    <p class="code">error 404 — nothing here</p>
+    <h1>This one's not pinned to the board.</h1>
+    <p>Whatever you were looking for got taken down, moved, or never existed in the first place. Happens to the best flyers.</p>
+    <div class="actions">
+      <a href="https://claude.ai/artifact/9jNCwMRPgTnhofn9fVyKjo" class="btn btn-primary">Back to the board</a>
+      <a href="https://claude.ai/artifact/9jNCwMRPgTnhofn9fVyKjo#listings" class="btn btn-ghost">Browse listings</a>
+    </div>
+  </div>
+
+  <p class="fine">If you think this is a mistake, <a href="mailto:hello@unimanitoba.store" style="text-decoration:underline;">let us know</a>.</p>
+</div>
+
+</body>
+</html>

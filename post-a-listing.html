@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post a listing — UniManitoba.store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --board: #5B3A26;
+    --board-deep: #432A1B;
+    --paper: #F6EFDD;
+    --paper-2: #EFE5C9;
+    --ink: #241C14;
+    --ink-soft: #4A3E2E;
+    --gold: #C89B3C;
+    --gold-deep: #A87F28;
+    --rust: #A6432E;
+    --teal: #2C4A52;
+    --line: rgba(36,28,20,0.14);
+  }
+  :root:not([data-theme="light"]){ --page-bg: #2E2013; }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --page-bg: #201609; }
+  }
+  :root[data-theme="dark"]{ --page-bg: #201609; }
+  :root[data-theme="light"]{ --page-bg: #EFE6D2; }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--page-bg, #EFE6D2);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width: 760px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width:560px){ .wrap{ padding: 0 18px; } }
+
+  header.site{
+    background: var(--board);
+    border-bottom: 8px solid var(--board-deep);
+    padding: 22px 0;
+  }
+  .nav-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .wordmark{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.25rem;
+    color: var(--paper); text-decoration:none; display:flex; align-items:baseline; gap:2px;
+  }
+  .wordmark small{
+    font-family:'Courier Prime', monospace; font-weight:400; font-size:.6rem;
+    color: var(--gold); letter-spacing:.06em; align-self:flex-start; margin-left:6px;
+    border:1px solid var(--gold-deep); padding:2px 6px; border-radius:3px;
+  }
+  .back-link{
+    font-size:.9rem; color: var(--paper-2); text-decoration:none; opacity:.85;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .back-link:hover{ opacity:1; text-decoration:underline; text-underline-offset:4px; }
+
+  .hero{
+    background: var(--board);
+    padding: 40px 0 64px;
+    border-bottom: 8px solid var(--board-deep);
+  }
+  .hero .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 28px;
+  }
+  .hero-text{ flex: 1 1 auto; min-width: 0; }
+  .mascot{
+    flex: 0 0 auto;
+    width: 108px;
+    height: 103px;
+  }
+  .mascot svg{ width:100%; height:100%; display:block; }
+  @media (max-width:560px){
+    .mascot{ display:none; }
+  }
+  .eyebrow{ font-family:'Courier Prime', monospace; font-size:.8rem; color: var(--gold); margin:0 0 12px; }
+  h1{
+    font-family:'Caveat', cursive; font-weight:700; color: var(--paper);
+    font-size: clamp(2.6rem, 5.6vw, 3.6rem); line-height:1.05; margin:0 0 10px; rotate:-0.6deg;
+  }
+  .hero p{ color: var(--paper-2); font-size:1.02rem; max-width:48ch; margin:0; }
+
+  .form-card{
+    background: var(--paper);
+    border-radius: 3px;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+    padding: 34px 34px 30px;
+    margin: -36px auto 60px;
+    position: relative;
+  }
+  .form-card::before{
+    content:'';
+    position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    width:16px; height:16px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #f0c85a, var(--gold-deep) 70%);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+  }
+  .field{ margin-bottom: 20px; }
+  .field label{
+    display:block; font-size:.82rem; font-weight:600; color: var(--ink-soft);
+    margin-bottom:6px; text-transform: lowercase; font-family:'Courier Prime', monospace;
+  }
+  .field input, .field select, .field textarea{
+    width:100%; font-family:'Inter', sans-serif; font-size:.96rem; color: var(--ink);
+    background: #fff; border:1px solid var(--line); border-radius:3px;
+    padding: 11px 13px; outline:none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    border-color: var(--gold-deep); box-shadow: 0 0 0 3px rgba(200,155,60,0.25);
+  }
+  .field textarea{ resize: vertical; min-height: 90px; }
+  .row-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width:560px){ .row-2{ grid-template-columns: 1fr; } }
+
+  .form-fields{ display:none; }
+  .form-fields.show{ display:block; }
+
+  .choice-prompt{
+    font-family:'Courier Prime', monospace;
+    font-size:.85rem;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+    text-align:center;
+  }
+  .choice-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width:560px){ .choice-row{ grid-template-columns: 1fr; } }
+  .choice-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap: 6px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px 16px;
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .choice-btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(36,28,20,0.14);
+    border-color: var(--gold-deep);
+  }
+  .choice-emoji{
+    width: 2rem; height: 2rem;
+    display:inline-flex; align-items:center; justify-content:center;
+    color: var(--ink-soft);
+  }
+  .choice-emoji svg{ width:100%; height:100%; display:block; }
+  .choice-title{ font-weight:700; font-size:1.02rem; color: var(--ink); }
+  .choice-sub{ font-size:.8rem; color: var(--ink-soft); line-height:1.4; }
+
+  .photo-drop{
+    border: 2px dashed var(--line);
+    border-radius: 4px;
+    padding: 26px;
+    text-align:center;
+    color: var(--ink-soft);
+    font-size:.9rem;
+    cursor:pointer;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .photo-drop:hover{ border-color: var(--gold-deep); background: rgba(200,155,60,0.06); }
+
+  .submit-btn{
+    width:100%;
+    margin-top: 6px;
+    font-family:'Inter', sans-serif; font-weight:700; font-size:1rem;
+    padding: 14px 20px; border-radius:4px; border:none; cursor:pointer;
+    background: var(--gold); color: var(--board-deep);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .submit-btn:hover{ transform: translateY(-1px); box-shadow: 0 4px 0 var(--gold-deep); }
+  .submit-note{
+    text-align:center; font-size:.8rem; color: var(--ink-soft); margin-top:12px;
+    font-family:'Courier Prime', monospace;
+  }
+
+  .success{
+    display:none;
+    text-align:center;
+    padding: 40px 20px 10px;
+  }
+  .success.show{ display:block; }
+  .success .stamp{
+    display:inline-block; font-family:'Caveat', cursive; font-weight:700;
+    font-size:2.2rem; color: var(--rust); border:4px solid var(--rust);
+    padding: 6px 22px; border-radius:6px; rotate:-6deg; margin-bottom:18px;
+  }
+  .success p{ color: var(--ink-soft); font-size:.98rem; }
+  .form-card.hide-form .form-fields{ display:none; }
+
+  footer{
+    text-align:center; padding: 30px 0 40px; color: var(--paper-2);
+    font-size:.8rem; opacity:.6;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="#" class="wordmark">UniManitoba<small>.store</small></a>
+    <a href="#" class="back-link" id="backLink">&larr; Back to the board</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <p class="eyebrow">new listing</p>
+      <h1>Pin something to the board</h1>
+      <p>Snap a photo, set a price, and it's live for every student on campus to see. No fees, no middleman.</p>
+    </div>
+    <div class="mascot" aria-hidden="true">
+      <svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 150 26 C 158 16, 168 8, 180 6 C 176 16, 170 26, 160 34 C 156 30, 152 28, 150 26 Z"
+              fill="#F6EFDD" stroke="#241C14" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M 50 26 C 42 16, 32 8, 20 6 C 24 16, 30 26, 40 34 C 44 30, 48 28, 50 26 Z"
+              fill="#F6EFDD" stroke="#241C14" stroke-width="2.5" stroke-linejoin="round"/>
+        <ellipse cx="166" cy="50" rx="13" ry="17" transform="rotate(-25 166 50)" fill="#C89B3C" stroke="#241C14" stroke-width="2.5"/>
+        <ellipse cx="34" cy="50" rx="13" ry="17" transform="rotate(25 34 50)" fill="#C89B3C" stroke="#241C14" stroke-width="2.5"/>
+        <path d="
+          M 100 18
+          L 112 30
+          L 122 15
+          L 134 28
+          L 146 18
+          C 156 26, 162 40, 162 58
+          C 162 80, 158 100, 150 118
+          C 142 136, 128 148, 112 152
+          L 100 154
+          L 88 152
+          C 72 148, 58 136, 50 118
+          C 42 100, 38 80, 38 58
+          C 38 40, 44 26, 54 18
+          L 66 28
+          L 78 15
+          L 88 30
+          Z
+        " fill="#C89B3C" stroke="#241C14" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M 100 154 C 96 162, 96 170, 100 176 C 104 170, 104 162, 100 154 Z"
+              fill="#C89B3C" stroke="#241C14" stroke-width="2.5"/>
+        <path d="M 74 108 C 74 96, 84 90, 100 90 C 116 90, 126 96, 126 108 C 126 122, 116 130, 100 130 C 84 130, 74 122, 74 108 Z"
+              fill="#F6EFDD" stroke="#241C14" stroke-width="2.5"/>
+        <ellipse cx="90" cy="110" rx="4" ry="6" fill="#241C14"/>
+        <ellipse cx="110" cy="110" rx="4" ry="6" fill="#241C14"/>
+        <path d="M 86 119 Q 100 131 114 119" fill="none" stroke="#241C14" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="72" cy="80" rx="6.5" ry="8.5" fill="#241C14"/>
+        <ellipse cx="128" cy="80" rx="6.5" ry="8.5" fill="#241C14"/>
+        <circle cx="74.5" cy="76.5" r="2" fill="#F6EFDD"/>
+        <circle cx="130.5" cy="76.5" r="2" fill="#F6EFDD"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="form-card" id="formCard">
+    <div class="type-choice" id="typeChoice">
+      <p class="choice-prompt">first — what are you posting?</p>
+      <div class="choice-row">
+        <button type="button" class="choice-btn" data-type="good">
+          <span class="choice-emoji" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 16 L24 8 L40 16 L40 34 L24 42 L8 34 Z"/>
+              <path d="M8 16 L24 24 L40 16"/>
+              <path d="M24 24 L24 42"/>
+            </svg>
+          </span>
+          <span class="choice-title">A good</span>
+          <span class="choice-sub">Textbooks, furniture, electronics, bikes, tickets</span>
+        </button>
+        <button type="button" class="choice-btn" data-type="service">
+          <span class="choice-emoji" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 8 L46 18 L24 28 L2 18 Z"/>
+              <path d="M15 19 C15 27, 33 27, 33 19"/>
+              <path d="M46 18 L46 31"/>
+              <circle cx="46" cy="34" r="1.8" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="choice-title">A service</span>
+          <span class="choice-sub">Tutoring, rides, photography, lessons</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-fields" id="formFields">
+      <form id="listingForm">
+        <div class="field">
+          <label for="title">what are you selling</label>
+          <input id="title" type="text" placeholder="e.g. CHEM 1300 textbook + lab manual" required>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="category">category</label>
+            <select id="category" required>
+              <option value="">Choose one</option>
+              <option>Textbooks &amp; course packs</option>
+              <option>Dorm &amp; furniture</option>
+              <option>Electronics</option>
+              <option>Bikes &amp; transit</option>
+              <option>Tickets &amp; events</option>
+              <option>Tutoring &amp; skills</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="price">price (cad)</label>
+            <input id="price" type="text" inputmode="decimal" placeholder="$0" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="desc">description</label>
+          <textarea id="desc" placeholder="Condition, why you're selling, anything a buyer should know..."></textarea>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="spot">pickup spot</label>
+            <input id="spot" type="text" placeholder="e.g. University Centre" required>
+          </div>
+          <div class="field">
+            <label for="email">your u of m email</label>
+            <input id="email" type="email" placeholder="you@myumanitoba.ca" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>photo</label>
+          <div class="photo-drop" id="photoDrop">Click to add a photo (optional for this preview)</div>
+        </div>
+
+        <button type="submit" class="submit-btn">Pin it to the board</button>
+        <p class="submit-note">No listing fees. Visible to students only.</p>
+      </form>
+    </div>
+
+    <div class="success" id="successMsg">
+      <div class="stamp">PINNED!</div>
+      <p>Your listing is up on the board. Buyers can now message you at the email you provided.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 UniManitoba.store — made by students at Fort Garry.
+</footer>
+
+<script>
+  var CATS = {
+    good: ["Textbooks & course packs","Dorm & furniture","Electronics","Bikes & transit","Tickets & events"],
+    service: ["Tutoring & skills","Rides & transport help","Photography & creative services","Other services"]
+  };
+
+  var typeChoice = document.getElementById('typeChoice');
+  var formFields = document.getElementById('formFields');
+  var categorySelect = document.getElementById('category');
+  var titleLabel = document.querySelector('label[for="title"]');
+  var titleInput = document.getElementById('title');
+  var spotLabel = document.querySelector('label[for="spot"]');
+  var spotInput = document.getElementById('spot');
+
+  document.querySelectorAll('.choice-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var type = btn.getAttribute('data-type');
+
+      categorySelect.innerHTML = '<option value="">Choose one</option>' +
+        CATS[type].map(function(c){ return '<option>' + c + '</option>'; }).join('');
+
+      if(type === 'service'){
+        titleLabel.textContent = 'what are you offering';
+        titleInput.placeholder = 'e.g. Calc II tutoring, weekly sessions';
+        spotLabel.textContent = "where you'll meet or deliver";
+        spotInput.placeholder = 'e.g. Online or Dafoe Library';
+      } else {
+        titleLabel.textContent = 'what are you selling';
+        titleInput.placeholder = 'e.g. CHEM 1300 textbook + lab manual';
+        spotLabel.textContent = 'pickup spot';
+        spotInput.placeholder = 'e.g. University Centre';
+      }
+
+      typeChoice.style.display = 'none';
+      formFields.classList.add('show');
+      titleInput.focus();
+    });
+  });
+
+  document.getElementById('listingForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formFields').style.display = 'none';
+    var success = document.getElementById('successMsg');
+    success.classList.add('show');
+  });
+
+  // Best-effort link back to the main board. Replace with the real
+  // homepage URL once this page is wired into the live site.
+  var back = document.getElementById('backLink');
+  back.addEventListener('click', function(e){
+    if(document.referrer){
+      e.preventDefault();
+      window.location.href = document.referrer;
+    }
+  });
+</script>
+
+</body>
+</html>
